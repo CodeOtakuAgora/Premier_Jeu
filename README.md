@@ -1,4 +1,5 @@
-*** Developed by Hugo Fief ***
+***Developed by Hugo Fief***
+
 
 ! Jeu de combat tour par tour en Java avec 2 Players ! 
 
