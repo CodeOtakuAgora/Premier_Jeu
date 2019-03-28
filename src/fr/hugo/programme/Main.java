@@ -1,4 +1,3 @@
-
 // on importe le package parent du projet
 package fr.hugo.programme;
 
@@ -186,63 +185,3 @@ public class Main {
 	}
 
 }
-
-/*************************************************************
- * TUTO OBJET
- ************************************************************/
-/*
- * 
- * //Joueur 1 Player player1 = new Player("Hugo", 30.0, 7.0);
- * System.out.println("*** Informations de " + player1.getName() + " ***");
- * System.out.println("Mon Nom : " + player1.getName());
- * System.out.println("Ma vie : " + player1.getHealth());
- * System.out.println("Mon Attaque : " + player1.getAttack());
- * //player1.damage(10.0); //System.out.println("Ma vie : " +
- * player1.getHealth());
- * 
- * System.out.println("_____________________________________\n");
- * 
- * // Joueur 2 Player player2 = new Player("Alexis", 50.0, 3.0);
- * player2.setName("Ludovic"); System.out.println("*** Informations de "
- * +player2.getName() + " ***"); System.out.println("Mon Nom : " +
- * player2.getName()); System.out.println("Ma Vie : " + player2.getHealth());
- * System.out.println("Mon Attaque : " + player2.getAttack());
- */
-
-/************************************************************
- * TUTO HERITAGE
- ***********************************************************/
-
-/*
- * 
- * Strawberry maFraise = new Strawberry(null); maFraise.taste();
- * maFraise.miam();
- * 
- * Kiwi monKiwi = new Kiwi(null); monKiwi.taste(); monKiwi.miam();
- * 
- * if((monKiwi instanceof PeelFruit) && (maFraise instanceof PeelFruit)) {
- * System.out.
- * println("La classe kiwi et fraise implémente l'interface PeelFruit");
- * //PeelFruit fruit = monAnanas; //fruit.isPeeled() } else if(!(monKiwi
- * instanceof PeelFruit) && (maFraise instanceof PeelFruit)) { System.out.
- * println("La classe kiwi et fraise n'implémente pas l'interface Peelfruit"); }
- * 
- */
-
-/*****************************************************
- * TUTO LECTURE CLAVIER
- ****************************************************/
-
-/*
- * 
- * @SuppressWarnings("resource") Scanner sc = new Scanner(System.in);
- * 
- * System.out.print("Veuillez saisir un mot : "); String str1 = sc.nextLine();
- * System.out.print("Veuillez saisir un nombre : "); int str2 = sc.nextInt();
- * System.out.print("Saisissez une lettre : "); sc.nextLine(); String str3 =
- * sc.nextLine(); char carac = str3.charAt(0);
- * System.out.println("Vous avez saisi : " + str1);
- * System.out.println("Vous avez saisi le nombre : " + str2);
- * System.out.println("Vous avez saisi le caractère : " + carac);
- * 
- */
