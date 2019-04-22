@@ -1,186 +1,124 @@
 package fr.hugo.programme;
 
-import java.util.Scanner;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
-//classe principale
+/**
+ * @author HUGO FIEF
+ *
+ */
 public class Main {
+	private static final String INDENT = " \t\t !!! ";
+	private static final String FINISH = "\t\t\t ***** FIN DU PROGRAMME *** ";
+	private static final String INFO = " Vous avez atteint la limite d'attaque spéciale !!!";
+	private static Random rand;
 
-	public static void main(String[] args) {
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		int replay;
+	/**
+	 * @param args : argument passé à main
+	 * @throws NoSuchAlgorithmException : exception si rand rencontre un problème
+	 */
+	public static void main(String[] args) throws NoSuchAlgorithmException {
+		Main processMain = new Main();
+		rand = SecureRandom.getInstanceStrong();
+		processMain.run();
+	}
+
+	/**
+	 * on initialise le jeu
+	 * 
+	 * @link {@link Player#Player(String, double, double)}
+	 * @link {@link Util#printlnConsole(String)
+	 */
+	public void run() {
+		Player attacker;
+		Player defender;
 
 		do {
-			int compteurPlayer1 = 0;
-			int compteurPlayer2 = 0;
-			String strReplay;
-			replay = 0;
+			int myRandom = rand.nextInt(2);
 
-			// Joueur 1
-			Player player1 = new Player("Hugo", 15.0, 7.0);
-			// Joueur 2
-			Player player2 = new Player("Alexis", 20.0, 5.0);
+			Player player1 = new Player("Hugo", 05.0, 7.0);
+			Player player2 = new Player("Alexis", 07.0, 5.0);
 
-			System.out.println("\t *** Informations de " + player1.getName() + " *** \t\t\t" + "*** Informations de "
-					+ player2.getName() + " ***");
-			System.out.println("Nom : " + player1.getName() + " / Vie : " + player1.getHealth() + " / Attaque : "
-					+ player1.getAttack() + "\t\t Nom : " + player2.getName() + " / Vie : " + player2.getHealth()
-					+ " / Attaque : " + player2.getAttack());
+			String msg = String.format("Tirage au sort : %s", myRandom);
+			Util.printlnConsole(msg);
 
-			while ((player1.getHealth() > 0) && (player2.getHealth() > 0)) {
-				System.out.println(
-						"_________________________________________________________________________________________________________");
-				System.out.println("\t\t\t * TOUR DU JOUEUR : " + player2.getName() + " * ");
-				System.out.println("\t\t    " + player2.getName() + " C'est votre tour, Attaquer " + player1.getName());
-				player2.choix(0);
-
-				if (player2.getStrPlayer() == 1) {
-					player1.damage(5.0);
-				}
-
-				else if (player2.getStrPlayer() == 2) {
-					if (compteurPlayer2 < 1) {
-						player1.damage(10.0);
-						compteurPlayer2++;
-					} else {
-						System.out.println("\t\t !!! " + player2.getName()
-								+ " Vous avez atteint la limite d'attaque spéciale !!!");
-					}
-
-				} else {
-					System.out.println("\t\t !!! Valeur Incorrecte veuillez entré une valeur entre 1 et 2 !!!");
-				}
-
-				if ((player1.getHealth() > 0) && (player2.getHealth() > 0)) {
-					System.out.println(
-							"_________________________________________________________________________________________________________");
-					System.out.println("\t\t\t * TOUR DU JOUEUR : " + player1.getName() + " * ");
-					System.out.println(
-							"\t\t    " + player1.getName() + " C'est votre tour, Attaquer " + player2.getName());
-					player1.choix(0);
-
-					if (player1.getStrPlayer() == 1) {
-						player2.damage(7.0);
-					} else if (player1.getStrPlayer() == 2) {
-						if (compteurPlayer1 < 1) {
-							player2.damage(14.0);
-							compteurPlayer1++;
-						} else {
-							System.out.println("\t\t !!! " + player1.getName()
-									+ " Vous avez atteint la limite d'attaque spéciale !!!");
-						}
-					}
-				}
-				if ((player1.getHealth() <= 0) || (player2.getHealth() <= 0)) {
-					System.out.println("\n \t\t\t\t *** Fin Du Jeu ***");
-
-					if (player1.getHealth() <= 0) {
-						System.out.println("\t\t\t *******   Gagnant : " + player2.getName() + "   *******");
-
-						System.out.print("\n\t\t\t ! Voulez Vous Rejouer (y/n) : ");
-						sc.nextLine();
-						strReplay = sc.nextLine();
-
-						if ((strReplay == "y") || (strReplay == "Y")) {
-							System.out.println("\t\t Super " + player2.getName() + " / Et allez c'est reparti");
-							replay = 1;
-						} else if ((strReplay == "n") || (strReplay == "N")) {
-							System.out.println(
-									"\t\t Ok " + player2.getName() + " Je te Remercie pour avoir joué à mon Jeu");
-							System.out.println("\t\t\t ***** FIN DU PROGRAMME *** ");
-						} else if ((strReplay != "y") && (strReplay != "Y") && (strReplay != "n")
-								&& (strReplay != "N")) {
-							System.out.println(
-									"\t\t Vous vous fichez de moi, je viens de vous dire qu'il rentrer soit y soit n");
-							System.out.println("\t\t\t ***** FIN DU PROGRAMME *** ");
-						}
-					}
-
-					else if (player2.getHealth() <= 0) {
-						System.out.println("\t\t\t *******   Gagnant : " + player1.getName() + "   *******");
-						System.out.print("\n\t\t\t ! Voulez Vous Rejouer (y/n) : ");
-						sc.nextLine();
-						strReplay = sc.nextLine();
-
-						if ((strReplay == "y") || (strReplay == "Y")) {
-							System.out.println("\t\t Super " + player1.getName() + " / Et allez c'est reparti");
-							replay = 1;
-						} else if ((strReplay == "n") || (strReplay == "N")) {
-							System.out.println(
-									"\t\t Ok " + player1.getName() + " / Je te Remercie pour avoir joué à mon Jeu");
-							System.out.println("\t\t\t ***** FIN DU PROGRAMME *** ");
-						} else if ((strReplay != "y") && (strReplay != "Y") && (strReplay != "n")
-								&& (strReplay != "N")) {
-							System.out.println("\t\t Vous vous fichez de moi, " + player1.getName()
-									+ " je viens de vous dire qu'il rentrer soit y soit n");
-							System.out.println("\t\t\t ***** FIN DU PROGRAMME *** ");
-						}
-					}
-				}
-
+			if (myRandom == 0) {
+				attacker = player2;
+				defender = player1;
+			} else {
+				attacker = player1;
+				defender = player2;
 			}
-		} while (replay != 1);
+			attacker.info();
+			defender.info();
+		} while (process(attacker, defender));
 
 	}
 
+	// on démarre le jeu
+	private boolean process(Player attacker, Player defender) {
+
+		boolean result = true;
+
+		do {
+			attack(attacker, defender);
+
+			if (defender.isDead()) {
+				result = finish(attacker);
+			}
+
+			Player swap = attacker;
+			attacker = defender;
+			defender = swap;
+		} while (result || (attacker.getHealth() > 0) && (defender.getHealth() > 0));
+
+		return result;
+	}
+
+	// on lui propose de jouer
+	private void attack(Player attacker, Player defender) {
+		Util.printlnConsole(
+				"___________________________________________________________________________________________\n");
+		Util.printlnConsole("\t\t\t * TOUR DU JOUEUR : " + attacker.getName() + " * ");
+		Util.printlnConsole("\t\t    " + attacker.getName() + " C'est votre tour, Attaquer " + defender.getName());
+		attacker.choix();
+
+		if (attacker.getStrPlayer() == 1) {
+			defender.damage(7.0);
+		} else if (attacker.getStrPlayer() == 2) {
+			if (attacker.hasSpecialAttack()) {
+				defender.damage(14.0);
+				attacker.deleteSpecialAttack();
+			} else {
+				Util.printlnConsole(INDENT + attacker.getName() + INFO);
+			}
+		} else if ((attacker.getStrPlayer() != 1) && (attacker.getStrPlayer() != 2)) {
+			Util.printlnConsole("\t\t !!! Valeur Incorrecte veuillez entré une valeur entre 1 et 2 !!!");
+		}
+	}
+
+	// on lui propose de rejouer
+	private boolean finish(Player player) {
+		Util.printlnConsole("\n \t\t\t\t *** Fin Du Jeu ***");
+		Util.printlnConsole("\t\t\t *******   Gagnant : " + player.getName() + "   *******");
+		player.replay();
+
+		if (player.getStrReplay() == 1) {
+			Util.printlnConsole("\n\t\t\t Super " + player.getName() + " / Et allez c'est reparti \n");
+			Util.printlnConsole(
+					"*******************************************************************************************\n");
+
+			return true;
+		} else if (player.getStrReplay() == 0) {
+			Util.printlnConsole("\n\t\t Ok " + player.getName() + " / Je te Remercie pour avoir joué à mon Jeu");
+			Util.printlnConsole(FINISH);
+		} else if ((player.getStrReplay() != 1) && (player.getStrReplay() != 0)) {
+			Util.printlnConsole("\n\t\t Vous vous moquez de moi, " + player.getName()
+					+ " je viens de vous dire qu'il rentrer soit 1 soit 0");
+			Util.printlnConsole(FINISH);
+		}
+		return false;
+	}
+
 }
-
-/***************************************
- * TUTO OBJET
- ************************************************************/
-/*
- * 
- * //Joueur 1 Player player1 = new Player("Hugo", 30.0, 7.0);
- * System.out.println("*** Informations de " + player1.getName() + " ***");
- * System.out.println("Mon Nom : " + player1.getName());
- * System.out.println("Ma vie : " + player1.getHealth());
- * System.out.println("Mon Attaque : " + player1.getAttack());
- * //player1.damage(10.0); //System.out.println("Ma vie : " +
- * player1.getHealth());
- * 
- * System.out.println("_____________________________________\n");
- * 
- * // Joueur 2 Player player2 = new Player("Alexis", 50.0, 3.0);
- * player2.setName("Ludovic"); System.out.println("*** Informations de "
- * +player2.getName() + " ***"); System.out.println("Mon Nom : " +
- * player2.getName()); System.out.println("Ma Vie : " + player2.getHealth());
- * System.out.println("Mon Attaque : " + player2.getAttack());
- */
-
-/*************************************
- * TUTO HERITAGE
- ***********************************************************/
-
-/*
- * 
- * Strawberry maFraise = new Strawberry(null); maFraise.taste();
- * maFraise.miam();
- * 
- * Kiwi monKiwi = new Kiwi(null); monKiwi.taste(); monKiwi.miam();
- * 
- * if((monKiwi instanceof PeelFruit) && (maFraise instanceof PeelFruit)) {
- * System.out.
- * println("La classe kiwi et fraise implémente l'interface PeelFruit");
- * //PeelFruit fruit = monAnanas; //fruit.isPeeled() } else if(!(monKiwi
- * instanceof PeelFruit) && (maFraise instanceof PeelFruit)) { System.out.
- * println("La classe kiwi et fraise n'implémente pas l'interface Peelfruit"); }
- * 
- */
-
-/*************************************
- * TUTO LECTURE CLAVIER
- ****************************************************/
-
-/*
- * 
- * @SuppressWarnings("resource") Scanner sc = new Scanner(System.in);
- * 
- * System.out.print("Veuillez saisir un mot : "); String str1 = sc.nextLine();
- * System.out.print("Veuillez saisir un nombre : "); int str2 = sc.nextInt();
- * System.out.print("Saisissez une lettre : "); sc.nextLine(); String str3 =
- * sc.nextLine(); char carac = str3.charAt(0);
- * System.out.println("Vous avez saisi : " + str1);
- * System.out.println("Vous avez saisi le nombre : " + str2);
- * System.out.println("Vous avez saisi le caractère : " + carac);
- * 
- */
